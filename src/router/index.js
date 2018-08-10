@@ -5,8 +5,9 @@ import Home from '@/page/home'
 import Login from '@/page/login'
 import Goods from '@/page/goods'
 import GoodsAdd from '@/page/goods/add'
-import Category from '@/page/category/index'
+import Category from '@/page/category'
 import User from '@/page/user'
+import Banner from '@/page/banner'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ const router = new Router({
           path: '/user',
           name: 'User',
           component: User
+        },
+        {
+          path: '/banner',
+          name: 'Banner',
+          component: Banner
         }
       ]
     }, {

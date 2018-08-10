@@ -83,9 +83,9 @@ export default {
       editCategory: {},
       columns: [
         {
-          title: '分类ID',
+          title: 'ID',
           key: 'typeId',
-          width: 80,
+          width: 60,
           align: 'center'
         },
         {
@@ -94,7 +94,7 @@ export default {
           minWidth: 120
         },
         {
-          title: '分类名称',
+          title: '父级分类',
           key: 'parentId',
           minWidth: 120,
           render: (h, params) => {
@@ -110,7 +110,7 @@ export default {
         {
           title: '是否显示',
           key: 'isShow',
-          width: 100,
+          width: 90,
           align: 'center',
           render: (h, params) => {
             let texts = ''
@@ -127,8 +127,8 @@ export default {
         {
           title: '排序号',
           key: 'typeSort',
-          width: 90,
-          sortable: true
+          width: 80,
+          align: 'center'
         },
         {
           title: '创建时间',

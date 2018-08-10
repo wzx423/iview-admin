@@ -30,18 +30,21 @@
                 <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed" :style="{overflowY:'auto'}">
                     <Menu theme="dark" width="auto" @on-select="openPath" :class="menuitemClasses">
                         <MenuItem name="User">
-                            <Icon type="ios-person" />
+                            <Icon type="md-people" />
                             <span>用户管理</span>
                         </MenuItem>
                         <MenuItem name="Goods">
-                            <Icon type="nuclear" />
+                            <Icon type="md-cube" />
                             <span>产品管理</span>
                         </MenuItem>
                         <MenuItem name="Category">
-                            <Icon type="grid" />
+                            <Icon type="md-apps" />
                             <span>分类管理</span>
                         </MenuItem>
-
+                        <MenuItem name="Banner">
+                            <Icon type="md-planet" />
+                            <span>广告管理</span>
+                        </MenuItem>
                     </Menu>
                 </Sider>
                 <Content :style="{width:'100%', height: '100%',overflowY:'auto'}">

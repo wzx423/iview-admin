@@ -1,6 +1,6 @@
 <template>
     <Card :bordered="false" class="login">
-        <p slot="title">后台登录</p>
+        <p slot="title">xx商城后台管理系统</p>
         <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
             <FormItem label="用户名" prop="username">
                 <Input v-model="formValidate.username" placeholder="输入用户名" />

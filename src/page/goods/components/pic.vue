@@ -40,7 +40,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
     .upload-list{
         display: inline-block;
         width: 60px;

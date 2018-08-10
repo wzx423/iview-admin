@@ -28,29 +28,17 @@
                 <Checkbox v-model="formGoods.isBest" :true-value="1" :false-value="0">精品</Checkbox>
             </FormItem>
             <FormItem label="商品图片" class="goodsImg">
-                <!-- <div class="upload-list" v-for="(item,index) in uploadList" :key="index">
+                <div class="upload-list" v-for="(item,index) in uploadList" :key="index">
                     <img :src="'http://192.168.10.185:3000/' + item">
                     <div class="upload-list-cover">
                         <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
                         <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
-                        <Icon type="arrow-left-c" @click.native="handleRemove(item)"></Icon>
-                        <Icon type="arrow-right-c" @click.native="handleRemove(item)"></Icon>
                     </div>
-                </div> -->
-                <goodsPic :goodsImg="uploadList"></goodsPic>
-                <template v-if="uploadList.length < 4">
-                    <Upload ref="upload" multipart="multipart/form-data" :show-upload-list="false" :format="['jpg','jpeg','png']" :max-size="2048" multiple  type="drag"
-                            action="http://192.168.10.185:3000/admin/goods/imgUpload"
-                            :before-upload="uploadBefore"
-                            :on-exceeded-size="uploadMaxSize"
-                            :on-success="uploadSuccess"
-                            :on-error="uploadError"
-                            style="display: inline-block;width:60px;">
-                        <div style="width: 58px;height:58px;line-height: 58px;">
-                            <Icon type="camera" size="20"></Icon>
-                        </div>
-                    </Upload>
-                </template>
+                </div>
+                <i-upload v-model="isLoad" :success="uploadSuccess" :fail="uploadFail"></i-upload>
+                <div @click="isLoad = true">
+                    <Icon type="md-add" size="20"/>
+                </div>
             </FormItem>
             <FormItem label="SEO关键字" prop="goodsSeoKeywords">
                 <Input v-model="formGoods.goodsSeoKeywords" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="输入SEO关键字" clearable></Input>
@@ -58,9 +46,6 @@
             <FormItem label="商品描述" prop="goodsDesc">
                 <Input v-model="formGoods.goodsDesc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="输入商品描述" clearable></Input>
             </FormItem>
-            <!-- <FormItem label="商品描述" prop="goodsDesc">
-                <Input v-model="formGoods.goodsDesc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="输入商品描述" clearable></Input>
-            </FormItem> -->
         </Form>
         <div style="text-align:right;">
             <Button type="warning" @click="handleReset('formGoods')" >重填</Button>
@@ -71,7 +56,7 @@
 </template>
 <script>
 import {addGoods, getCategory} from '@/utils/api'
-import goodsPic from './components/pic'
+import Upload from '@/components/upload'
 export default {
   data () {
     return {
@@ -144,45 +129,29 @@ export default {
       uploadList: [],
       categoryList: [],
       isCategoryShow: false,
-      loading: false
+      loading: false,
+      isLoad: false
     }
   },
   components: {
-    goodsPic
+    'i-upload': Upload
   },
   mounted () {
     this.getCategoryData()
   },
   methods: {
-    // 图片大小限制
-    uploadMaxSize (file) {
-      this.$Notice.warning({
-        title: '图片大小不能超过2m！'
-      })
-    },
-    // 图片上传前回调
-    uploadBefore (fileList) {
-      const check = this.$refs.upload.fileList.length < 4
-      if (!check) {
-        this.$Notice.warning({
-          title: '最多可上传4张图片！'
-        })
-      }
-      return check
-    },
     // 图片上传成功回调
-    uploadSuccess (response, file, fileList) {
-      this.uploadList.push(response.result)
-      this.formGoods.goodsImg = this.uploadList
+    uploadSuccess (response) {
+      this.uploadList = response
       this.$Notice.success({
         title: '图片上传成功！'
       })
     },
     // 图片上传失败回调
-    uploadError (error, file, fileList) {
+    uploadFail (error) {
       console.log(error)
       this.$Notice.error({
-        title: '图片上传失败！'
+        title: error
       })
     },
     // 获取分类

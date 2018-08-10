@@ -43,6 +43,7 @@ export function fetch (url, params, type = 'get') {
     })
   })
 }
+
 export const getUser = () => fetch('/user/get')
 
 export const searchUser = data => fetch('/user/search?' + data)
@@ -60,3 +61,7 @@ export const getCategory = () => fetch('/category/get')
 export const addCategory = data => fetch('/category/add', data, 'post')
 
 export const updateCategory = data => fetch('/category/update', data, 'post')
+
+export const getAds = () => fetch('/ads/get')
+
+export const updateFile = data => fetch('/upload', data, 'post')
